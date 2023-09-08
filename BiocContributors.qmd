@@ -41,7 +41,7 @@ excluded_domains <- c("gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "g
 domain_counts <- maintainers %>%
   group_by(EmailDomain) %>%
   summarise(Count = n()) %>%
-  filter(Count >= 1) %>%
+  filter(Count >= 10) %>%
   filter(!EmailDomain %in% excluded_domains)
 
 filtered_maintainers <- maintainers %>%
