@@ -11,7 +11,7 @@ execute:
 editor: visual
 ---
 
-This automates the identification and visualisation of groups (organisations) contributing (maintaining) large numbers of Bioconductor packages (\>= 15). It creates an interactive graph where each node is a package, grouped by organisation.
+This automates the identification and visualisation of groups (organisations) contributing (maintaining) large numbers of Bioconductor packages (\>= 10). It creates an interactive graph where each node is a package, grouped by organisation.
 
 -   It uses the mantainer's email domain to identify organisation.
 
@@ -36,12 +36,12 @@ maintainers <- temp_df %>%
 # Create an igraph object
 graph <- graph.empty()
 
-# Filter out packages with organisation count < 15 and excluded domains
+# Filter out packages with organisation count < 10 and excluded domains
 excluded_domains <- c("gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "googlemail.com", "bioconductor.org")
 domain_counts <- maintainers %>%
   group_by(EmailDomain) %>%
   summarise(Count = n()) %>%
-  filter(Count >= 15) %>%
+  filter(Count >= 1) %>%
   filter(!EmailDomain %in% excluded_domains)
 
 filtered_maintainers <- maintainers %>%
@@ -91,4 +91,5 @@ unique_packages$group <- unique_packages$EmailDomain
 visNetwork(nodes = unique_packages, edges = graph_df_filtered) %>%
   visOptions(clickToUse = FALSE) %>%
   visLegend()
+
 ```
